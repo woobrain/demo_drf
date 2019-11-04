@@ -8,9 +8,11 @@ from rest_framework.viewsets import ModelViewSet
 from book.models import BookInfo
 from book.views_serializer import BookSerializer
 
+
 class SetPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 3
+
 
 class BooksView(ModelViewSet):
 
@@ -24,15 +26,18 @@ class BooksView(ModelViewSet):
 
     # throttle_classes = (UserRateThrottle,)
     # filter_fields = ('btitle', 'bread','bcomment')
-    #
+
     # filter_backends = [OrderingFilter]
     # ordering_fields = ('id', 'bread', 'bpub_date','bcomment')
 
-
-
     @action(methods=['get'],detail=False)
     def last_book(self,request):
-        data = 1/0
+        """
+            获取最后一本书
+        :param request:
+        :return:
+        """
+        # data = 1/0
         book = BookInfo.objects.latest('id')
 
         ser = self.get_serializer(book)

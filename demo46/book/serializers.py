@@ -10,8 +10,8 @@ class BookSerializer(serializers.Serializer):
     # 定义序列化器字段  字段选项验证
     # read_only表示该字段只进行序列化返回
     id = serializers.IntegerField(read_only=True)
-    btitle = serializers.CharField(max_length=20, min_length=4)
-    bread = serializers.IntegerField(max_value=100, min_value=0)
+    btitle = serializers.CharField(max_length=20, min_length=4,help_text='名称')
+    bread = serializers.IntegerField(max_value=100, min_value=0,help_text='阅读量')
     # 默认情况下required=True表示该字段必传  write_only 只参与反序列化
     bpub_date = serializers.DateField(write_only=True,required=False)
     bcomment = serializers.IntegerField(default=0)
