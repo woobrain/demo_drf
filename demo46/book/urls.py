@@ -15,17 +15,38 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-
-from book import views_serializer
+from rest_framework.routers import SimpleRouter,DefaultRouter
+from book import views_serializer,views_apiview,views_genericapiview,view_modelmixin,\
+    view_modelmixinchild,view_viewset,view_modelviewset
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view()),
+    # url(r'^$', views.IndexView.as_view()),
     # url(r'^books/$', views.BooksView.as_view()),
     # url(r'^books/(?P<pk>\d+)/$', views.BookView.as_view()),
-    url(r'^books/$', views_serializer.BooksView.as_view()),
-    url(r'^books/(?P<pk>\d+)/$', views_serializer.BookView.as_view()),
+    # url(r'^books/$', views_serializer.BooksView.as_view()),
+    # url(r'^books/(?P<pk>\d+)/$', views_serializer.BookView.as_view()),
+    #
+    # url(r'^heros/$', views_genericapiview.HeroView.as_view()),
+    # url(r'^heros/(?P<pk>\d+)/$', views_genericapiview.HeroView.as_view()),
+    #
+    # url(r'^books/$', views_apiview.BooksView.as_view()),
+    # url(r'^books/(?P<pk>\d+)/$', views_apiview.BookView.as_view()),
+    #
+    # url(r'^books/$', views_genericapiview.BooksView.as_view()),
+    # url(r'^books/(?P<pk>\d+)/$', views_genericapiview.BookView.as_view()),
 
-    url(r'^heros/$', views_serializer.HeroView.as_view()),
-    url(r'^heros/(?P<pk>\d+)/$', views_serializer.HeroView.as_view()),
+    # url(r'^books/$', view_modelmixin.BooksView.as_view()),
+    # url(r'^books/(?P<pk>\d+)/$', view_modelmixin.BookView.as_view()),
+    # url(r'^books/$', view_modelmixinchild.BooksView.as_view()),
+    # url(r'^books/(?P<pk>\d+)/$', view_modelmixinchild.BookView.as_view()),
+    # url(r'^books/last_book/$',view_modelviewset.BooksView.as_view({'get':'last_book'})),
+    # url(r'^books/(?P<pk>\d+)/bread_book/$',view_modelviewset.BooksView.as_view({'get':'bread_book'}))
+    # url(r'^books/$', view_modelviewset.BooksView.as_view({'get':'list','post':'create'})),
+    # url(r'^books/(?P<pk>\d+)/$', view_modelviewset.BooksView.as_view({'get':'retrieve','put':'update','delete':'destroy'})),
 ]
+router = SimpleRouter()
+router.register('books',view_modelviewset.BooksView,base_name='books')
+print(router.urls)
+urlpatterns += router.urls
+

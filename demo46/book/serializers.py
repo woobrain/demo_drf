@@ -42,8 +42,8 @@ class BookSerializer(serializers.Serializer):
             # 抛出的异常被视图中的error属性获取
             raise serializers.ValidationError('书名不能python')
 
-        if len(value['btitle']) >= 20 or len(value['btitle']) <= 4:
-            raise serializers.ValidationError('书名长度不符合要求')
+        # if len(value['btitle']) >= 20 or len(value['btitle']) <= 4:
+        #     raise serializers.ValidationError('书名长度不符合要求')
         # 注意！！ 一定要将验证后的结果返回
         return value
 
@@ -79,9 +79,6 @@ class BookSerializer(serializers.Serializer):
             return JsonResponse({"error": "更新失败"})
         book = BookInfo.objects.get(id=instance.id)
         return book
-
-
-
 
 
 class HeroSerialzier(serializers.Serializer):
